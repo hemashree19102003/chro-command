@@ -2,11 +2,12 @@ import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Users, Briefcase, Wallet, Receipt,
   FileSignature, Clock, HardHat, Command, BarChart3,
-  Settings, Bot, ChevronLeft
+  Settings, Bot, ChevronLeft, ChevronDown, Layers
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
-const navItems = [
+const hrApps = [
   { title: "Dashboard", path: "/", icon: LayoutDashboard },
   { title: "Recruit", path: "/recruit", icon: Briefcase },
   { title: "People", path: "/people", icon: Users },
@@ -15,7 +16,6 @@ const navItems = [
   { title: "Sign", path: "/sign", icon: FileSignature },
   { title: "Shifts", path: "/shifts", icon: Clock },
   { title: "Workerly", path: "/workerly", icon: HardHat },
-  { title: "Command Center", path: "/command-center", icon: Command },
   { title: "Analytics", path: "/analytics", icon: BarChart3 },
   { title: "Settings", path: "/settings", icon: Settings },
 ];
@@ -27,6 +27,11 @@ interface AppSidebarProps {
 
 export function AppSidebar({ open, onToggle }: AppSidebarProps) {
   const location = useLocation();
+  const isHrRoute = location.pathname !== "/command-center";
+  const [hrExpanded, setHrExpanded] = useState(isHrRoute);
+
+  const isActive = (path: string) =>
+    path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
 
   return (
     <aside
@@ -58,25 +63,95 @@ export function AppSidebar({ open, onToggle }: AppSidebarProps) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 space-y-0.5 px-2 py-4 overflow-y-auto">
-        {navItems.map((item) => {
-          const isActive = item.path === "/" ? location.pathname === "/" : location.pathname.startsWith(item.path);
-          return (
-            <NavLink
-              key={item.path}
-              to={item.path}
+      <nav className="flex-1 space-y-1 px-2 py-4 overflow-y-auto">
+        {/* HR Group */}
+        <button
+          onClick={() => setHrExpanded(!hrExpanded)}
+          className={cn(
+            "flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-semibold transition-all",
+            isHrRoute && !hrExpanded
+              ? "bg-sidebar-primary text-sidebar-primary-foreground"
+              : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+          )}
+        >
+          <div className="flex items-center gap-3">
+            <Layers className="h-4.5 w-4.5 shrink-0" />
+            {open && <span>HR</span>}
+          </div>
+          {open && (
+            <ChevronDown
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
-                isActive
-                  ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                "h-4 w-4 transition-transform duration-200",
+                hrExpanded && "rotate-180"
               )}
-            >
-              <item.icon className="h-4.5 w-4.5 shrink-0" />
-              {open && <span>{item.title}</span>}
-            </NavLink>
-          );
-        })}
+            />
+          )}
+        </button>
+
+        {/* HR Apps (expandable) */}
+        {hrExpanded && open && (
+          <div className="ml-2 space-y-0.5 border-l border-sidebar-border pl-2 pt-1">
+            {hrApps.map((item) => {
+              const active = isActive(item.path);
+              return (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={cn(
+                    "flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-all",
+                    active
+                      ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                      : "text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                  )}
+                >
+                  <item.icon className="h-4 w-4 shrink-0" />
+                  <span>{item.title}</span>
+                </NavLink>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Collapsed HR apps (icon only) */}
+        {hrExpanded && !open && (
+          <div className="space-y-0.5 pt-1">
+            {hrApps.map((item) => {
+              const active = isActive(item.path);
+              return (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  title={item.title}
+                  className={cn(
+                    "flex items-center justify-center rounded-lg p-2.5 transition-all",
+                    active
+                      ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                      : "text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                  )}
+                >
+                  <item.icon className="h-4 w-4 shrink-0" />
+                </NavLink>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Divider */}
+        <div className="my-2 border-t border-sidebar-border" />
+
+        {/* Command Center */}
+        <NavLink
+          to="/command-center"
+          className={cn(
+            "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-all",
+            location.pathname === "/command-center"
+              ? "bg-sidebar-primary text-sidebar-primary-foreground"
+              : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+          )}
+        >
+          <Command className="h-4.5 w-4.5 shrink-0" />
+          {open && <span>Command Center</span>}
+        </NavLink>
       </nav>
 
       {/* Footer */}
