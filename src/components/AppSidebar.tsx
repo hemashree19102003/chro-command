@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 const hrApps = [
-  { title: "Dashboard", path: "/", icon: LayoutDashboard },
+  { title: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
   { title: "Recruit", path: "/recruit", icon: Briefcase },
   { title: "People", path: "/people", icon: Users },
   { title: "Payroll", path: "/payroll", icon: Wallet },
@@ -27,11 +27,11 @@ interface AppSidebarProps {
 
 export function AppSidebar({ open, onToggle }: AppSidebarProps) {
   const location = useLocation();
-  const isHrRoute = location.pathname !== "/command-center";
+  const isHrRoute = location.pathname !== "/command-center" && location.pathname !== "/hr" && location.pathname !== "/";
   const [hrExpanded, setHrExpanded] = useState(isHrRoute);
 
   const isActive = (path: string) =>
-    path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
+    path === "/dashboard" ? location.pathname === "/dashboard" : location.pathname.startsWith(path);
 
   return (
     <aside
@@ -65,12 +65,22 @@ export function AppSidebar({ open, onToggle }: AppSidebarProps) {
       {/* Nav */}
       <nav className="flex-1 space-y-1 px-2 py-4 overflow-y-auto">
         {/* HR Group */}
-        <button
-          onClick={() => setHrExpanded(!hrExpanded)}
+        <NavLink
+          to="/hr"
+          onClick={(e) => {
+            if (location.pathname === "/hr") {
+              e.preventDefault();
+              setHrExpanded(!hrExpanded);
+            } else {
+              setHrExpanded(true);
+            }
+          }}
           className={cn(
             "flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-semibold transition-all",
-            isHrRoute && !hrExpanded
+            location.pathname === "/hr"
               ? "bg-sidebar-primary text-sidebar-primary-foreground"
+              : isHrRoute
+              ? "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           )}
         >
@@ -86,7 +96,7 @@ export function AppSidebar({ open, onToggle }: AppSidebarProps) {
               )}
             />
           )}
-        </button>
+        </NavLink>
 
         {/* HR Apps (expandable) */}
         {hrExpanded && open && (
