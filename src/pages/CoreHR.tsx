@@ -2,20 +2,35 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
   Users, Clock, Calendar, FileText, BarChart3, 
-  HeadphonesIcon, LogOut, Timer, ClipboardList, ArrowRight, ArrowLeft
+  HeadphonesIcon, LogOut, Timer, ClipboardList, ArrowRight, ArrowLeft,
+  CheckCircle2, Shield, Zap, Globe
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const modules = [
-  { id: "employee-management", name: "Employee Management", icon: Users, description: "Centralize employee records, manage profiles, and organize your entire workforce from one place." },
-  { id: "attendance-management", name: "Attendance Management", icon: Clock, description: "Track employee attendance in real-time with biometric, geo-fencing, and mobile check-in support." },
-  { id: "shift-management", name: "Shift Management", icon: Timer, description: "Create and manage complex shift schedules with auto-rotation and conflict detection." },
-  { id: "leave-management", name: "Leave Management", icon: Calendar, description: "Automate leave policies, track balances, and enable self-service leave applications." },
-  { id: "timesheets", name: "Timesheets", icon: ClipboardList, description: "Log work hours, track project time, and generate accurate timesheet reports." },
-  { id: "hr-help-desk", name: "HR Help Desk", icon: HeadphonesIcon, description: "Provide employees with a dedicated help desk for all HR-related queries and requests." },
-  { id: "document-management", name: "Document Management", icon: FileText, description: "Store, organize, and manage all HR documents with version control and secure access." },
-  { id: "hr-analytics", name: "HR Analytics", icon: BarChart3, description: "Gain actionable insights into workforce trends with powerful HR dashboards and reports." },
-  { id: "offboarding", name: "Offboarding", icon: LogOut, description: "Manage employee exits smoothly with structured offboarding workflows and checklists." },
+  { id: "employee-management", name: "Employee Management", icon: Users, description: "Centralize employee records, manage profiles, and organize your entire workforce from one place.", highlights: ["Custom fields", "Org chart", "Bulk import"] },
+  { id: "attendance-management", name: "Attendance Management", icon: Clock, description: "Track employee attendance in real-time with biometric, geo-fencing, and mobile check-in support.", highlights: ["Biometric", "GPS check-in", "Live dashboard"] },
+  { id: "shift-management", name: "Shift Management", icon: Timer, description: "Create and manage complex shift schedules with auto-rotation and conflict detection.", highlights: ["Drag & drop", "Auto-rotation", "Overtime alerts"] },
+  { id: "leave-management", name: "Leave Management", icon: Calendar, description: "Automate leave policies, track balances, and enable self-service leave applications.", highlights: ["Auto-accrual", "Team calendar", "Comp-off"] },
+  { id: "timesheets", name: "Timesheets", icon: ClipboardList, description: "Log work hours, track project time, and generate accurate timesheet reports.", highlights: ["Project tracking", "Timer mode", "Billable hours"] },
+  { id: "hr-help-desk", name: "HR Help Desk", icon: HeadphonesIcon, description: "Provide employees with a dedicated help desk for all HR-related queries and requests.", highlights: ["Ticket system", "Knowledge base", "SLA tracking"] },
+  { id: "document-management", name: "Document Management", icon: FileText, description: "Store, organize, and manage all HR documents with version control and secure access.", highlights: ["E-signatures", "Version control", "Templates"] },
+  { id: "hr-analytics", name: "HR Analytics", icon: BarChart3, description: "Gain actionable insights into workforce trends with powerful HR dashboards and reports.", highlights: ["Predictive AI", "Custom reports", "Trend analysis"] },
+  { id: "offboarding", name: "Offboarding", icon: LogOut, description: "Manage employee exits smoothly with structured offboarding workflows and checklists.", highlights: ["Exit interviews", "Asset recovery", "Settlement calc"] },
+];
+
+const whyChoose = [
+  { icon: Shield, title: "Enterprise Security", desc: "SOC 2 compliant with end-to-end encryption, role-based access, and complete audit trails." },
+  { icon: Zap, title: "Instant Setup", desc: "Go live in under 48 hours with guided onboarding, data migration, and dedicated support." },
+  { icon: Globe, title: "India-first Compliance", desc: "Built-in support for Indian labor laws, PF, ESI, gratuity, and state-specific regulations." },
+  { icon: Users, title: "Scalable for All Sizes", desc: "From 50 to 50,000 employees — scales with your growth without compromising performance." },
+];
+
+const stats = [
+  { value: "80%", label: "Reduction in manual HR tasks" },
+  { value: "3x", label: "Faster onboarding process" },
+  { value: "95%", label: "Employee self-service adoption" },
+  { value: "60%", label: "Fewer payroll errors" },
 ];
 
 export default function CoreHR() {
@@ -38,7 +53,7 @@ export default function CoreHR() {
               <span className="text-lg font-bold text-foreground">CHRO People</span>
             </div>
           </div>
-          <Button size="sm">Request Demo</Button>
+          <Button size="sm">Start</Button>
         </div>
       </nav>
 
@@ -47,14 +62,33 @@ export default function CoreHR() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
           <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">Core HR</span>
           <h1 className="text-4xl font-bold text-foreground mb-4">Core HR Software</h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-muted-foreground mb-6">
             Centralize and manage all employee data efficiently. From attendance to offboarding, handle every HR process with ease.
           </p>
+          <Button size="lg" className="px-8">Start</Button>
         </motion.div>
       </section>
 
+      {/* Stats Bar */}
+      <section className="border-y bg-muted/30">
+        <div className="mx-auto max-w-7xl px-6 py-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((s) => (
+              <div key={s.label} className="text-center">
+                <p className="text-3xl font-bold text-primary">{s.value}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Module Cards */}
-      <section className="mx-auto max-w-7xl px-6 pb-20">
+      <section className="mx-auto max-w-7xl px-6 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl font-bold text-foreground mb-3">All Core HR Modules</h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">Everything you need to manage your workforce — from day one to the last day.</p>
+        </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {modules.map((mod, i) => (
             <motion.div
@@ -70,12 +104,45 @@ export default function CoreHR() {
                 <mod.icon className="h-5 w-5 text-primary" />
               </div>
               <h3 className="text-base font-semibold text-foreground mb-2">{mod.name}</h3>
-              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{mod.description}</p>
+              <p className="text-sm text-muted-foreground mb-4">{mod.description}</p>
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {mod.highlights.map((h) => (
+                  <span key={h} className="rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">{h}</span>
+                ))}
+              </div>
               <span className="text-sm font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
                 Learn More <ArrowRight className="h-3.5 w-3.5" />
               </span>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* Why Choose */}
+      <section className="bg-muted/30 border-y">
+        <div className="mx-auto max-w-7xl px-6 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-foreground mb-3">Why choose CHRO Core HR?</h2>
+            <p className="text-muted-foreground max-w-lg mx-auto">Purpose-built for Indian enterprises with world-class features and local compliance.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {whyChoose.map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="rounded-xl border bg-white p-5 text-center"
+              >
+                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <item.icon className="h-5 w-5 text-primary" />
+                </div>
+                <h3 className="text-sm font-semibold text-foreground mb-1.5">{item.title}</h3>
+                <p className="text-xs text-muted-foreground">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -86,7 +153,7 @@ export default function CoreHR() {
           <p className="text-primary-foreground/80 mb-6 max-w-md mx-auto text-sm">Start managing your entire workforce from a single platform.</p>
           <div className="flex justify-center gap-4">
             <Button size="lg" variant="secondary">Start Free Trial</Button>
-            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">Request Demo</Button>
+            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">Contact Sales</Button>
           </div>
         </div>
       </section>
