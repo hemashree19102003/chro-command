@@ -213,7 +213,7 @@ export default function CoreHRModule() {
             <div className="h-5 w-px bg-border" />
             <span className="text-sm font-semibold text-foreground">{data.name}</span>
           </div>
-          <Button size="sm">Request Demo</Button>
+          <Button size="sm">Start</Button>
         </div>
       </nav>
 
@@ -226,7 +226,7 @@ export default function CoreHRModule() {
             </div>
             <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{data.name}</h1>
             <p className="text-lg text-muted-foreground mb-8">{data.subtitle}</p>
-            <Button size="lg" className="px-8">Request Demo</Button>
+            <Button size="lg" className="px-8">Start</Button>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="hidden lg:block">
             <div className="rounded-2xl border bg-gradient-to-br from-muted/50 to-muted p-8">
@@ -310,7 +310,7 @@ export default function CoreHRModule() {
           <p className="text-primary-foreground/80 mb-6 text-sm">See how CHRO People can transform your HR operations.</p>
           <div className="flex justify-center gap-4">
             <Button size="lg" variant="secondary">Start Free Trial</Button>
-            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">Request Demo</Button>
+            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">Contact Sales</Button>
           </div>
         </div>
       </section>

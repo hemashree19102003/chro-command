@@ -167,7 +167,7 @@ export default function People() {
           </div>
           <div className="flex items-center gap-3">
             <Button variant="outline" size="sm">Sign in</Button>
-            <Button size="sm">Request Demo</Button>
+            <Button size="sm">Start</Button>
           </div>
         </div>
       </nav>
@@ -189,7 +189,7 @@ export default function People() {
               </p>
               <div className="flex items-center gap-4">
                 <Button size="lg" className="px-8">Start Free Trial</Button>
-                <Button size="lg" variant="outline" className="px-8">Request Demo</Button>
+                <Button size="lg" variant="outline" className="px-8">Contact Sales</Button>
               </div>
               <div className="mt-10 flex items-center gap-6">
                 <div className="flex -space-x-2">
@@ -298,7 +298,7 @@ export default function People() {
           <div className="flex items-center justify-center gap-4">
             <Button size="lg" variant="secondary" className="px-8">Start Free Trial</Button>
             <Button size="lg" variant="outline" className="px-8 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-              Request Demo
+              Contact Sales
             </Button>
           </div>
         </div>
