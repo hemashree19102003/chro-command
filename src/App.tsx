@@ -7,6 +7,8 @@ import HRApps from "./pages/HRApps";
 import Dashboard from "./pages/Dashboard";
 import Recruit from "./pages/Recruit";
 import People from "./pages/People";
+import CoreHR from "./pages/CoreHR";
+import CoreHRModule from "./pages/CoreHRModule";
 import Payroll from "./pages/Payroll";
 import Expense from "./pages/Expense";
 import SignModule from "./pages/SignModule";
@@ -31,6 +33,8 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/recruit" element={<Recruit />} />
           <Route path="/people" element={<People />} />
+          <Route path="/people/core-hr" element={<CoreHR />} />
+          <Route path="/people/core-hr/:moduleId" element={<CoreHRModule />} />
           <Route path="/payroll" element={<Payroll />} />
           <Route path="/expense" element={<Expense />} />
           <Route path="/sign" element={<SignModule />} />
