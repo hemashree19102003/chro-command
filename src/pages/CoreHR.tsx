@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { 
-  Users, Clock, Calendar, FileText, BarChart3, 
+import {
+  Users, Clock, Calendar, FileText, BarChart3,
   HeadphonesIcon, LogOut, Timer, ClipboardList, ArrowRight, ArrowLeft,
   CheckCircle2, Shield, Zap, Globe
 } from "lucide-react";
@@ -11,7 +11,7 @@ const modules = [
   { id: "employee-management", name: "Employee Management", icon: Users, description: "Centralize employee records, manage profiles, and organize your entire workforce from one place.", highlights: ["Custom fields", "Org chart", "Bulk import"] },
   { id: "attendance-management", name: "Attendance Management", icon: Clock, description: "Track employee attendance in real-time with biometric, geo-fencing, and mobile check-in support.", highlights: ["Biometric", "GPS check-in", "Live dashboard"] },
   { id: "shift-management", name: "Shift Management", icon: Timer, description: "Create and manage complex shift schedules with auto-rotation and conflict detection.", highlights: ["Drag & drop", "Auto-rotation", "Overtime alerts"] },
-  { id: "leave-management", name: "Leave Management", icon: Calendar, description: "Automate leave policies, track balances, and enable self-service leave applications.", highlights: ["Auto-accrual", "Team calendar", "Comp-off"] },
+  { id: "leave-management", name: "Leave Management (Time Off)", icon: Calendar, description: "Automate leave policies, track balances, and enable self-service leave applications.", highlights: ["Auto-accrual", "Team calendar", "Comp-off"] },
   { id: "timesheets", name: "Timesheets", icon: ClipboardList, description: "Log work hours, track project time, and generate accurate timesheet reports.", highlights: ["Project tracking", "Timer mode", "Billable hours"] },
   { id: "hr-help-desk", name: "HR Help Desk", icon: HeadphonesIcon, description: "Provide employees with a dedicated help desk for all HR-related queries and requests.", highlights: ["Ticket system", "Knowledge base", "SLA tracking"] },
   { id: "document-management", name: "Document Management", icon: FileText, description: "Store, organize, and manage all HR documents with version control and secure access.", highlights: ["E-signatures", "Version control", "Templates"] },
@@ -60,36 +60,18 @@ export default function CoreHR() {
       {/* Hero */}
       <section className="mx-auto max-w-7xl px-6 py-16">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-          <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">Core HR</span>
+          <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4 border border-primary/20">Core HR Software</span>
           <h1 className="text-4xl font-bold text-foreground mb-4">Core HR Software</h1>
           <p className="text-lg text-muted-foreground mb-6">
-            Centralize and manage all employee data efficiently. From attendance to offboarding, handle every HR process with ease.
+            Manage employee data, attendance, leave, and workforce operations from a centralized platform.
           </p>
-          <Button size="lg" className="px-8">Start</Button>
+          <Button size="lg" className="px-8 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">Start Free Trial</Button>
         </motion.div>
-      </section>
-
-      {/* Stats Bar */}
-      <section className="border-y bg-muted/30">
-        <div className="mx-auto max-w-7xl px-6 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <p className="text-3xl font-bold text-primary">{s.value}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* Module Cards */}
       <section className="mx-auto max-w-7xl px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl font-bold text-foreground mb-3">All Core HR Modules</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">Everything you need to manage your workforce — from day one to the last day.</p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {modules.map((mod, i) => (
             <motion.div
               key={mod.id}
@@ -97,22 +79,35 @@ export default function CoreHR() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              onClick={() => navigate(`/people/core-hr/${mod.id}`)}
-              className="group rounded-xl border bg-white p-6 hover:shadow-md hover:border-primary/30 transition-all cursor-pointer"
+              className="group rounded-2xl border bg-white p-8 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300"
             >
-              <div className="h-11 w-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <mod.icon className="h-5 w-5 text-primary" />
+              <div className="h-12 w-12 rounded-xl bg-[#6C3EFF]/10 flex items-center justify-center mb-6 border border-[#6C3EFF]/5">
+                <mod.icon className="h-6 w-6 text-[#6C3EFF]" />
               </div>
-              <h3 className="text-base font-semibold text-foreground mb-2">{mod.name}</h3>
-              <p className="text-sm text-muted-foreground mb-4">{mod.description}</p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {mod.highlights.map((h) => (
-                  <span key={h} className="rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">{h}</span>
-                ))}
-              </div>
-              <span className="text-sm font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
-                Learn More <ArrowRight className="h-3.5 w-3.5" />
-              </span>
+              <h3 className="text-xl font-bold text-[#1e293b] mb-3">{mod.name}</h3>
+              <p className="text-sm text-slate-600 mb-6 leading-relaxed">{mod.description}</p>
+
+              {mod.id === "employee-management" || mod.id === "attendance-management" ? (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button variant="outline" size="sm" className="w-full border-slate-200 text-slate-600 hover:bg-slate-50">Start Trial</Button>
+                    <Button variant="outline" size="sm" className="w-full border-slate-200 text-slate-600 hover:bg-slate-50">Demo</Button>
+                  </div>
+                  <Button
+                    onClick={() => navigate(`/people/core-hr/${mod.id}/app`)}
+                    className="w-full bg-[#6C3EFF] text-white hover:bg-[#5a31d6] shadow-lg shadow-[#6C3EFF]/20 font-bold transition-all duration-300"
+                  >
+                    Start
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={() => navigate(`/people/core-hr/${mod.id}`)}
+                  className="w-full bg-white text-[#6C3EFF] border border-[#6C3EFF]/20 hover:bg-[#6C3EFF] hover:text-white transition-all duration-300"
+                >
+                  Start
+                </Button>
+              )}
             </motion.div>
           ))}
         </div>

@@ -90,9 +90,10 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 }
 
@@ -100,13 +101,23 @@
   .agent-pulse {
     animation: agentPulse 2s ease-in-out infinite;
   }
+
   @keyframes agentPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.6;
+    }
   }
+
   .enterprise-shadow {
     box-shadow: 0 1px 3px 0 hsl(240 10% 10% / 0.04), 0 1px 2px -1px hsl(240 10% 10% / 0.04);
   }
+
   .enterprise-shadow-md {
     box-shadow: 0 4px 6px -1px hsl(240 10% 10% / 0.06), 0 2px 4px -2px hsl(240 10% 10% / 0.04);
   }
