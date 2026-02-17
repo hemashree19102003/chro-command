@@ -8,8 +8,8 @@ import {
 import { motion } from "framer-motion";
 
 const modules = [
-  { id: "employee-management", name: "Employee Management", icon: Users, description: "Centralize employee records, manage profiles, and organize your entire workforce from one place.", highlights: ["Custom fields", "Org chart", "Bulk import"] },
-  { id: "attendance-management", name: "Attendance Management", icon: Clock, description: "Track employee attendance in real-time with biometric, geo-fencing, and mobile check-in support.", highlights: ["Biometric", "GPS check-in", "Live dashboard"] },
+  { id: "employee-management", name: "Employee Management", icon: Users, description: "Manage employees, structure, and lifecycle efficiently.", highlights: ["Custom fields", "Org chart", "Bulk import"] },
+  { id: "attendance-management", name: "Attendance Management", icon: Clock, description: "Track employee attendance, shifts, and work hours efficiently.", highlights: ["Biometric", "GPS check-in", "Live dashboard"] },
   { id: "shift-management", name: "Shift Management", icon: Timer, description: "Create and manage complex shift schedules with auto-rotation and conflict detection.", highlights: ["Drag & drop", "Auto-rotation", "Overtime alerts"] },
   { id: "leave-management", name: "Leave Management (Time Off)", icon: Calendar, description: "Automate leave policies, track balances, and enable self-service leave applications.", highlights: ["Auto-accrual", "Team calendar", "Comp-off"] },
   { id: "timesheets", name: "Timesheets", icon: ClipboardList, description: "Log work hours, track project time, and generate accurate timesheet reports.", highlights: ["Project tracking", "Timer mode", "Billable hours"] },
@@ -58,15 +58,188 @@ export default function CoreHR() {
       </nav>
 
       {/* Hero */}
-      <section className="mx-auto max-w-7xl px-6 py-16">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-          <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4 border border-primary/20">Core HR Software</span>
-          <h1 className="text-4xl font-bold text-foreground mb-4">Core HR Software</h1>
-          <p className="text-lg text-muted-foreground mb-6">
-            Manage employee data, attendance, leave, and workforce operations from a centralized platform.
-          </p>
-          <Button size="lg" className="px-8 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">Start Free Trial</Button>
-        </motion.div>
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="max-w-2xl">
+            <span className="inline-block rounded-full bg-[#6C3EFF]/10 px-4 py-1.5 text-xs font-semibold text-[#6C3EFF] mb-4 border border-[#6C3EFF]/20">Core HR Software</span>
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-extrabold text-[#111827] mb-6 leading-[1.1]">The complete people software for Indian teams.</h1>
+            <p className="text-lg text-slate-500 mb-8 leading-relaxed">
+              Manage employee data, attendance, leave, and workforce operations from a centralized platform built for modern enterprises. Scalable from startup to enterprise.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg" className="px-8 bg-[#6C3EFF] hover:bg-[#5a31d6] shadow-xl shadow-[#6C3EFF]/20 h-14 text-lg font-bold">Start Free Trial</Button>
+              <Button size="lg" variant="outline" className="px-8 h-14 text-lg font-bold border-slate-200">Watch Demo</Button>
+            </div>
+
+            <div className="mt-12 flex items-center gap-6">
+              <div className="flex -space-x-3">
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className="h-10 w-10 rounded-full border-2 border-white bg-slate-100 overflow-hidden shadow-sm">
+                    <img src={`https://i.pravatar.cc/100?u=${i}`} alt="" />
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm font-medium text-slate-600">Join <span className="text-[#6C3EFF] font-bold">50,000+</span> HR professionals today.</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, x: 20 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="relative"
+          >
+            <div className="rounded-[40px] border border-slate-200/60 shadow-2xl overflow-hidden bg-white p-2 relative z-10 scale-[0.85] lg:scale-100 origin-right">
+              {/* Fake App Header */}
+              <div className="bg-slate-50 border-b px-6 py-3 flex items-center justify-between">
+                <div className="flex gap-1.5">
+                  <div className="h-2.5 w-2.5 rounded-full bg-rose-400" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                </div>
+                <div className="bg-white border rounded-lg px-4 py-1 text-[10px] text-slate-400 font-mono">chro.admin/dashboard</div>
+                <div className="w-12" />
+              </div>
+
+              {/* Fake Dashboard Body */}
+              <div className="p-6 bg-[#F8FAFC] min-h-[500px] overflow-hidden">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-xl bg-white border shadow-sm overflow-hidden"><img src="https://i.pravatar.cc/100?u=admin" className="object-cover" /></div>
+                    <div><h4 className="text-sm font-bold">Good Morning, Admin!</h4><p className="text-[9px] text-slate-400 italic">"Efficiency is doing things right..."</p></div>
+                  </div>
+                  <div className="h-8 w-24 bg-[#6C3EFF] rounded-lg shadow-lg shadow-[#6C3EFF]/20" />
+                </div>
+
+                <div className="grid grid-cols-4 gap-3 mb-6">
+                  {[4, 12, 8, 24].map((v, i) => (
+                    <div key={i} className="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm">
+                      <div className="h-1 bg-[#6C3EFF]/10 rounded-full w-8 mb-2" />
+                      <p className="text-lg font-black text-slate-800 leading-none">{v}</p>
+                      <p className="text-[7px] font-bold text-slate-400 uppercase mt-1 tracking-tighter">{['Tasks', 'New Hires', 'Openings', 'Reports'][i]}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm space-y-4">
+                    <h5 className="text-[10px] font-bold text-slate-800">Recruitment Pipeline</h5>
+                    <div className="space-y-3">
+                      {[
+                        { l: 'Applied', w: '100%', c: 'bg-slate-100' },
+                        { l: 'Selected', w: '40%', c: 'bg-[#6C3EFF]' },
+                        { l: 'Offered', w: '15%', c: 'bg-emerald-400' }
+                      ].map(p => (
+                        <div key={p.l} className="space-y-1">
+                          <div className="flex justify-between text-[8px] font-bold uppercase"><span className="text-slate-400">{p.l}</span></div>
+                          <div className="h-1.5 w-full bg-slate-50 rounded-full overflow-hidden"><motion.div initial={{ width: 0 }} animate={{ width: p.w }} className={`h-full ${p.c}`} /></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col">
+                    <div className="flex justify-between mb-3">
+                      <h5 className="text-[10px] font-bold text-slate-800">Attendance Today</h5>
+                      <span className="text-[9px] text-emerald-500 font-bold italic">92% Live</span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 flex-1">
+                      <div className="space-y-4">
+                        <div className="flex gap-2">
+                          {[
+                            { l: 'P', c: 'bg-[#6C3EFF]', v: '432' },
+                            { l: 'L', c: 'bg-amber-400', v: '54' },
+                            { l: 'A', c: 'bg-rose-400', v: '28' }
+                          ].map(s => (
+                            <div key={s.l} className="flex-1 p-1.5 rounded-lg bg-slate-50 border border-slate-100 items-center justify-center flex flex-col gap-0.5">
+                              <p className="text-[7px] font-black text-slate-400 uppercase">{s.l}</p>
+                              <p className={`text-[8px] font-black ${s.c.replace('bg-', 'text-')}`}>{s.v}</p>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex items-end justify-between h-14 gap-1 px-1">
+                          {[30, 50, 80, 60, 95, 70, 40].map((v, i) => (
+                            <div key={i} className="flex-1 bg-slate-50 rounded-t-sm relative group overflow-hidden">
+                              <motion.div initial={{ height: 0 }} animate={{ height: `${v}%` }} className="absolute bottom-0 w-full bg-[#6C3EFF]/10" />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="bg-slate-50/50 rounded-2xl p-3 space-y-2">
+                        <p className="text-[7px] font-bold text-slate-400 uppercase tracking-widest">Recent Logs</p>
+                        {[
+                          { n: 'Rahul S.', t: '09:05 AM' },
+                          { n: 'Ananya I.', t: '09:12 AM' },
+                          { n: 'Sid M.', t: '09:30 AM' }
+                        ].map((log, i) => (
+                          <div key={i} className="flex items-center justify-between">
+                            <div className="flex items-center gap-1.5">
+                              <div className="h-1 w-1 rounded-full bg-emerald-400" />
+                              <span className="text-[8px] font-bold text-slate-700">{log.n}</span>
+                            </div>
+                            <span className="text-[7px] font-mono text-slate-400">{log.t}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 bg-white p-5 rounded-3xl border border-slate-100 shadow-sm">
+                  <h5 className="text-[10px] font-bold text-slate-800 mb-4">Celebrations Today</h5>
+                  <div className="flex gap-4">
+                    <div className="flex -space-x-2">
+                      {[1, 2, 3].map(i => <div key={i} className="h-8 w-8 rounded-full border-2 border-white overflow-hidden shadow-sm"><img src={`https://i.pravatar.cc/100?u=c${i}`} /></div>)}
+                    </div>
+                    <div><p className="text-[9px] font-bold text-slate-800">Ananya & 2 others</p><p className="text-[8px] text-[#6C3EFF] font-bold">Wishes Sent ✨</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating Card 1 */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="absolute -bottom-4 lg:-bottom-8 -left-4 lg:-left-8 bg-white rounded-2xl shadow-2xl p-4 border border-slate-100 flex items-center gap-4 z-20"
+            >
+              <div className="h-12 w-12 rounded-xl bg-emerald-50 flex items-center justify-center shadow-inner">
+                <CheckCircle2 className="h-6 w-6 text-emerald-500" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-800">Attendance: 92%</p>
+                <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-tight">On Track Today</p>
+              </div>
+            </motion.div>
+
+            {/* Floating Card 2 */}
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="absolute -top-4 lg:-top-10 -right-4 lg:-right-10 bg-white rounded-2xl shadow-2xl p-5 border border-slate-100 hidden md:block z-20"
+            >
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-[#6C3EFF]" />
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">New Hire</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                    <img src="https://i.pravatar.cc/100?u=rahul" alt="" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-800">Rahul Dev</p>
+                    <p className="text-[10px] text-slate-400">Head of Tech • Engineering</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Module Cards */}
