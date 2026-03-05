@@ -367,8 +367,7 @@ export default function CoreHRModule() {
             <span className="text-sm font-bold text-foreground">{data.name}</span>
           </div>
           <div className="flex items-center gap-3">
-            <Button size="sm" variant="ghost">Request Demo</Button>
-            <Button size="sm">Start Free Trial</Button>
+            <Button size="sm" variant="outline" onClick={() => navigate(`/people/core-hr/${moduleId}/app`)}>Start</Button>
           </div>
         </div>
       </nav>
@@ -387,15 +386,13 @@ export default function CoreHRModule() {
               {data.subtext}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="px-8 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20">Start Free Trial</Button>
-              <Button size="lg" variant="outline" className="px-8 border-primary/20">Request Demo</Button>
               <Button
                 size="lg"
-                variant="secondary"
-                className="px-8 border border-primary/20 font-bold"
+                variant="outline"
+                className="px-8 border-primary/20 font-bold"
                 onClick={() => navigate(`/people/core-hr/${moduleId}/app`)}
               >
-                ✅ Start
+                Start
               </Button>
             </div>
           </motion.div>
@@ -570,8 +567,7 @@ export default function CoreHRModule() {
             Experience the power of modern HR automation with CHRO People. Start your 14-day free trial today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button size="lg" variant="secondary" className="px-10 h-14 text-lg font-bold shadow-xl">Start Free Trial</Button>
-            <Button size="lg" variant="outline" className="px-10 h-14 text-lg font-bold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">Contact Sales</Button>
+            <Button size="lg" variant="outline" className="px-10 h-14 text-lg font-bold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" onClick={() => navigate(`/people/core-hr/${moduleId}/app`)}>Start</Button>
           </div>
         </div>
         {/* Background art */}

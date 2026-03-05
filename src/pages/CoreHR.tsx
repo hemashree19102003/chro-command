@@ -1,11 +1,165 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Users, Clock, Calendar, FileText, BarChart3,
   HeadphonesIcon, LogOut, Timer, ClipboardList, ArrowRight, ArrowLeft,
   CheckCircle2, Shield, Zap, Globe
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+
+function ModuleCarousel({ modules, navigate }: { modules: any[], navigate: any }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    if (isHovering) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % modules.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [isHovering, modules.length]);
+
+  return (
+    <div
+      className="relative w-full max-w-5xl h-full flex items-center justify-center pt-24"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      style={{ perspective: "2000px" }}
+    >
+      <div className="relative w-full flex items-center justify-center transform-gpu">
+        <AnimatePresence mode="popLayout">
+          {modules.map((mod, i) => {
+            let diff = i - activeIndex;
+            if (diff < -Math.floor(modules.length / 2)) diff += modules.length;
+            if (diff > Math.floor(modules.length / 2)) diff -= modules.length;
+
+            const isActive = diff === 0;
+            const isVisible = Math.abs(diff) <= 2;
+
+            if (!isVisible) return null;
+
+            return (
+              <motion.div
+                key={mod.id}
+                onClick={() => setActiveIndex(i)}
+                initial={{ opacity: 0, scale: 0.5, z: -500, rotateY: diff * 45 }}
+                animate={{
+                  opacity: 1 - Math.abs(diff) * 0.25,
+                  scale: isActive ? 1.15 : 0.85,
+                  x: diff * 290,
+                  z: isActive ? 150 : -Math.abs(diff) * 150,
+                  y: Math.abs(diff) * 30,
+                  rotateY: diff * -25,
+                  rotateX: isActive ? 0 : 5,
+                  zIndex: 10 - Math.abs(diff),
+                  filter: isActive ? "blur(0px)" : `blur(${Math.abs(diff) * 1.5}px)`,
+                }}
+                exit={{ opacity: 0, scale: 0.5, z: -500 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 25,
+                  mass: 1
+                }}
+                className={`absolute w-[300px] cursor-pointer rounded-[40px] border overflow-hidden group/card transition-all duration-700 ${isActive
+                    ? "bg-white border-[#6C3EFF]/30 shadow-[0_40px_80px_-15px_rgba(108,62,255,0.15)]"
+                    : "bg-slate-50/80 border-slate-200/50 grayscale-[0.4]"
+                  }`}
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                {/* Visual Accent Gradients */}
+                {isActive && (
+                  <>
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#6C3EFF]/10 to-transparent rounded-bl-full pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#6C3EFF]/5 to-transparent rounded-tr-full pointer-events-none" />
+                  </>
+                )}
+
+                <div className="relative p-8 z-10">
+                  {/* Floating Rank Indicator */}
+                  <div className={`absolute top-6 right-8 text-[10px] font-black tracking-[0.2em] transition-colors duration-700 ${isActive ? "text-[#6C3EFF]/40" : "text-slate-300"
+                    }`}>
+                    0{i + 1}
+                  </div>
+
+                  {/* Icon with Glowing Backdrop */}
+                  <div className="relative mb-8">
+                    {isActive && (
+                      <motion.div
+                        layoutId="glow"
+                        className="absolute inset-0 bg-[#6C3EFF]/20 blur-2xl rounded-full scale-150"
+                      />
+                    )}
+                    <div className={`relative h-14 w-14 rounded-2xl flex items-center justify-center border transition-all duration-700 ${isActive
+                        ? "bg-white border-[#6C3EFF]/20 shadow-[0_10px_30px_-5px_rgba(108,62,255,0.2)]"
+                        : "bg-slate-100 border-slate-200"
+                      }`}>
+                      <mod.icon className={`h-7 w-7 transition-colors duration-700 ${isActive ? "text-[#6C3EFF]" : "text-slate-400"}`} />
+                    </div>
+                  </div>
+
+                  <h3 className={`text-xl font-black mb-3 tracking-tight leading-tight transition-colors duration-700 ${isActive ? "text-slate-900" : "text-slate-400"
+                    }`}>
+                    {mod.name}
+                  </h3>
+
+                  <p className={`text-[13px] leading-relaxed mb-8 transition-colors duration-700 ${isActive ? "text-slate-600 font-medium" : "text-slate-300"
+                    }`}>
+                    {mod.description}
+                  </p>
+
+                  <div className="space-y-3 mb-10">
+                    {mod.highlights?.map((h: string) => (
+                      <div key={h} className="flex items-center gap-3">
+                        <div className={`h-1 w-1 rounded-full transition-colors duration-700 ${isActive ? "bg-[#6C3EFF]" : "bg-slate-200"
+                          }`} />
+                        <span className={`text-[11px] font-bold tracking-wide uppercase transition-colors duration-700 ${isActive ? "text-slate-500" : "text-slate-300"
+                          }`}>
+                          {h}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button
+                    variant={isActive ? "default" : "outline"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (mod.id === "employee-management" || mod.id === "attendance-management" || mod.id === "shift-management") {
+                        navigate(`/people/core-hr/${mod.id}/app`);
+                      } else {
+                        navigate(`/people/core-hr/${mod.id}`);
+                      }
+                    }}
+                    className={`w-full font-black h-12 text-sm rounded-2xl transition-all duration-500 transform-gpu ${isActive
+                        ? "bg-[#6C3EFF] hover:bg-[#5a31d6] text-white shadow-[0_15px_30px_-5px_rgba(108,62,255,0.4)] hover:-translate-y-1"
+                        : "border-slate-200 text-slate-300 hover:text-slate-400 hover:bg-slate-50"
+                      }`}
+                  >
+                    Start Experience
+                  </Button>
+                </div>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </div>
+
+      {/* Navigation Indicators */}
+      <div className="absolute -bottom-24 flex gap-3">
+        {modules.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveIndex(i)}
+            className={`h-2 rounded-full transition-all duration-700 ${activeIndex === i ? "w-12 bg-[#6C3EFF]" : "w-3 bg-slate-200 hover:bg-slate-300"
+              }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const modules = [
   { id: "employee-management", name: "Employee Management", icon: Users, description: "Manage employees, structure, and lifecycle efficiently.", highlights: ["Custom fields", "Org chart", "Bulk import"] },
@@ -53,7 +207,7 @@ export default function CoreHR() {
               <span className="text-lg font-bold text-foreground">CHRO People</span>
             </div>
           </div>
-          <Button size="sm">Start</Button>
+          <Button size="sm" variant="outline" onClick={() => navigate("/people/core-hr/employee-management/app")}>Start</Button>
         </div>
       </nav>
 
@@ -67,8 +221,7 @@ export default function CoreHR() {
               Manage employee data, attendance, leave, and workforce operations from a centralized platform built for modern enterprises. Scalable from startup to enterprise.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="px-8 bg-[#6C3EFF] hover:bg-[#5a31d6] shadow-xl shadow-[#6C3EFF]/20 h-14 text-lg font-bold">Start Free Trial</Button>
-              <Button size="lg" variant="outline" className="px-8 h-14 text-lg font-bold border-slate-200">Watch Demo</Button>
+              <Button size="lg" variant="outline" className="px-8 h-14 text-lg font-bold border-slate-200" onClick={() => navigate("/people/core-hr/employee-management/app")}>Start</Button>
             </div>
 
             <div className="mt-12 flex items-center gap-6">
@@ -242,47 +395,15 @@ export default function CoreHR() {
         </div>
       </section>
 
-      {/* Module Cards */}
-      <section className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {modules.map((mod, i) => (
-            <motion.div
-              key={mod.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              className="group rounded-2xl border bg-white p-8 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300"
-            >
-              <div className="h-12 w-12 rounded-xl bg-[#6C3EFF]/10 flex items-center justify-center mb-6 border border-[#6C3EFF]/5">
-                <mod.icon className="h-6 w-6 text-[#6C3EFF]" />
-              </div>
-              <h3 className="text-xl font-bold text-[#1e293b] mb-3">{mod.name}</h3>
-              <p className="text-sm text-slate-600 mb-6 leading-relaxed">{mod.description}</p>
+      {/* Module Carousel Section */}
+      <section className="mx-auto max-w-7xl px-6 py-24 relative overflow-hidden">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-black text-slate-800 mb-4">Explore Our Modules</h2>
+          <p className="text-slate-500 italic">Hover or tap to focus on a module. Auto-advances every 4 seconds.</p>
+        </div>
 
-              {mod.id === "employee-management" || mod.id === "attendance-management" ? (
-                <div className="space-y-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    <Button variant="outline" size="sm" className="w-full border-slate-200 text-slate-600 hover:bg-slate-50">Start Trial</Button>
-                    <Button variant="outline" size="sm" className="w-full border-slate-200 text-slate-600 hover:bg-slate-50">Demo</Button>
-                  </div>
-                  <Button
-                    onClick={() => navigate(`/people/core-hr/${mod.id}/app`)}
-                    className="w-full bg-[#6C3EFF] text-white hover:bg-[#5a31d6] shadow-lg shadow-[#6C3EFF]/20 font-bold transition-all duration-300"
-                  >
-                    Start
-                  </Button>
-                </div>
-              ) : (
-                <Button
-                  onClick={() => navigate(`/people/core-hr/${mod.id}`)}
-                  className="w-full bg-white text-[#6C3EFF] border border-[#6C3EFF]/20 hover:bg-[#6C3EFF] hover:text-white transition-all duration-300"
-                >
-                  Start
-                </Button>
-              )}
-            </motion.div>
-          ))}
+        <div className="relative h-[600px] flex items-center justify-center">
+          <ModuleCarousel modules={modules} navigate={navigate} />
         </div>
       </section>
 
@@ -320,8 +441,7 @@ export default function CoreHR() {
           <h2 className="text-2xl font-bold text-primary-foreground mb-3">Streamline your Core HR operations</h2>
           <p className="text-primary-foreground/80 mb-6 max-w-md mx-auto text-sm">Start managing your entire workforce from a single platform.</p>
           <div className="flex justify-center gap-4">
-            <Button size="lg" variant="secondary">Start Free Trial</Button>
-            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">Contact Sales</Button>
+            <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10" onClick={() => navigate("/people/core-hr/employee-management/app")}>Start</Button>
           </div>
         </div>
       </section>

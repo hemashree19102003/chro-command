@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
     Users, Clock, Calendar, FileText, BarChart3,
@@ -80,6 +80,36 @@ export default function CoreHROperational() {
     const [designations, setDesignations] = useState(initialDesigs);
     const [roles, setRoles] = useState(initialRoles);
     const [customFields, setCustomFields] = useState(initialCustomFields);
+
+    // --- Backend Integration ---
+    useEffect(() => {
+        const fetchBackendData = async () => {
+            try {
+                const [empRes, deptRes, desigRes] = await Promise.all([
+                    fetch('http://localhost:3001/api/employees'),
+                    fetch('http://localhost:3001/api/departments'),
+                    fetch('http://localhost:3001/api/designations')
+                ]);
+
+                if (empRes.ok) {
+                    const rawEmps = await empRes.json();
+                    console.log('✅ Backend employees loaded:', rawEmps.length);
+                    setEmployees(rawEmps.map((e: any) => ({ ...e, dept: e.department, desig: e.designation })));
+                }
+                if (deptRes.ok) {
+                    const rawDepts = await deptRes.json();
+                    setDepts(rawDepts.map((d: any) => ({ ...d, count: d.count || Math.floor(Math.random() * 50) + 5 })));
+                }
+                if (desigRes.ok) {
+                    const rawDesigs = await desigRes.json();
+                    setDesignations(rawDesigs.map((d: any) => ({ ...d, dept: d.department })));
+                }
+            } catch (error) {
+                console.error("Backend connection failed, using local data:", error);
+            }
+        };
+        fetchBackendData();
+    }, []);
     const [holidays, setHolidays] = useState([{ name: "Republic Day", date: "2026-01-26" }, { name: "Holi", date: "2026-03-14" }]);
     const [lifecycleLogs, setLifecycleLogs] = useState([{ emp: "Rahul Sharma", type: "Confirmation", date: "2024-04-12", notes: "Successfully completed probation." }]);
 

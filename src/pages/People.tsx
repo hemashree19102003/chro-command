@@ -1,48 +1,48 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { 
-  ChevronDown, Users, Clock, Calendar, FileText, Shield, 
+import {
+  ChevronDown, Users, Clock, Calendar, FileText, Shield,
   BarChart3, UserPlus, Briefcase, MessageSquare, Smartphone,
   Link2, Bot, HeadphonesIcon, LogOut, Timer, ClipboardList,
-  Star, Zap, CheckCircle2, ArrowRight, HelpCircle
+  Star, Zap, CheckCircle2, ArrowRight, HelpCircle, Settings
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const featuresMenu = [
-  { 
+  {
     label: "Hiring & Onboarding", icon: UserPlus,
     items: ["Applicant Tracking", "Offer Management", "Employee Onboarding", "Background Verification"]
   },
-  { 
+  {
     label: "Core HR", icon: Users, link: "/people/core-hr",
     items: ["Employee Management", "Attendance Management", "Shift Management", "Leave Management", "Timesheets", "HR Help Desk", "Document Management", "HR Analytics", "Offboarding"]
   },
-  { 
+  {
     label: "Performance & Development", icon: Star,
     items: ["Goal Setting", "Performance Reviews", "360 Feedback", "Learning Management"]
   },
-  { 
+  {
     label: "Payroll & Expense", icon: Briefcase,
     items: ["Payroll Processing", "Expense Claims", "Tax Compliance", "Salary Structure"]
   },
-  { 
+  {
     label: "Employee Engagement", icon: Zap,
     items: ["Surveys", "Rewards & Recognition", "Team Collaboration", "Announcements"]
   },
-  { 
+  {
     label: "HR Automation", icon: Bot,
     items: ["Workflow Builder", "Auto-approvals", "Policy Engine", "Scheduled Tasks"]
   },
-  { 
+  {
     label: "HR Chatbot", icon: MessageSquare,
     items: ["Employee Queries", "Policy Q&A", "Leave Requests", "IT Help Desk"]
   },
-  { 
+  {
     label: "Mobile App", icon: Smartphone,
     items: ["Attendance Check-in", "Leave Apply", "Payslip View", "Approvals"]
   },
-  { 
+  {
     label: "Integrations", icon: Link2,
     items: ["Slack", "Microsoft Teams", "Google Workspace", "Accounting Software"]
   },
@@ -110,11 +110,10 @@ export default function People() {
                               setFeaturesOpen(false);
                             }
                           }}
-                          className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-colors ${
-                            activeCategory === i
-                              ? "bg-primary/10 text-primary font-medium"
-                              : "text-foreground hover:bg-muted/50"
-                          }`}
+                          className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-colors ${activeCategory === i
+                            ? "bg-primary/10 text-primary font-medium"
+                            : "text-foreground hover:bg-muted/50"
+                            }`}
                         >
                           <cat.icon className="h-4 w-4 shrink-0" />
                           <span>{cat.label}</span>
@@ -208,27 +207,125 @@ export default function People() {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="hidden lg:block"
+              className="hidden lg:block relative"
             >
-              <div className="rounded-2xl border bg-gradient-to-br from-muted/50 to-muted p-8 shadow-lg">
-                <div className="rounded-xl border bg-white p-6 shadow-sm">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Users className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">Employee Dashboard</p>
-                      <p className="text-xs text-muted-foreground">Real-time workforce insights</p>
-                    </div>
+              {/* Decorative background elements */}
+              <div className="absolute -top-10 -right-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
+              <div className="absolute -bottom-10 -left-10 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+
+              <div className="relative rounded-2xl border border-white/50 bg-white shadow-2xl overflow-hidden backdrop-blur-sm">
+                {/* Dashboard Windows Header */}
+                <div className="h-10 border-b bg-muted/30 flex items-center px-4 justify-between">
+                  <div className="flex gap-1.5">
+                    <div className="h-3 w-3 rounded-full bg-red-400/20" />
+                    <div className="h-3 w-3 rounded-full bg-amber-400/20" />
+                    <div className="h-3 w-3 rounded-full bg-emerald-400/20" />
                   </div>
-                  <div className="space-y-3">
-                    {["Total Employees: 352", "New Joiners: 12 this month", "On Leave Today: 8", "Pending Approvals: 5"].map((line) => (
-                      <div key={line} className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
-                        <span className="text-xs text-foreground">{line}</span>
+                  <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Employee Dashboard</div>
+                  <div className="w-10" />
+                </div>
+
+                <div className="flex h-[400px]">
+                  {/* Sidebar */}
+                  <div className="w-14 border-r bg-muted/10 flex flex-col items-center py-4 gap-4">
+                    <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Users className="h-4 w-4 text-primary" />
+                    </div>
+                    {[Clock, Calendar, FileText, BarChart3, Settings].map((Icon, i) => (
+                      <div key={i} className="h-8 w-8 rounded-lg hover:bg-muted flex items-center justify-center transition-colors">
+                        <Icon className="h-4 w-4 text-muted-foreground" />
                       </div>
                     ))}
                   </div>
+
+                  {/* Main Content */}
+                  <div className="flex-1 p-6 bg-white overflow-hidden">
+                    <div className="flex justify-between items-center mb-6">
+                      <div>
+                        <h3 className="text-lg font-bold text-foreground">Welcome back, Sarah!</h3>
+                        <p className="text-xs text-muted-foreground">Here's what's happening today.</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
+                          <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                        </div>
+                        <div className="h-8 w-8 rounded-full bg-primary/20 border border-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">
+                          SA
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      {/* Stat Cards */}
+                      <div className="rounded-xl border p-4 hover:border-primary/30 transition-colors bg-gradient-to-br from-white to-muted/20">
+                        <div className="flex justify-between items-start mb-2">
+                          <p className="text-xs font-medium text-muted-foreground">Total Employees</p>
+                          <span className="text-[10px] text-emerald-500 font-bold bg-emerald-50 px-1.5 py-0.5 rounded">+12%</span>
+                        </div>
+                        <p className="text-2xl font-bold text-foreground">1,248</p>
+                        <div className="mt-2 h-1 w-full bg-muted rounded-full overflow-hidden">
+                          <div className="h-full w-[70%] bg-primary rounded-full" />
+                        </div>
+                      </div>
+
+                      <div className="rounded-xl border p-4 hover:border-primary/30 transition-colors bg-gradient-to-br from-white to-muted/20">
+                        <div className="flex justify-between items-start mb-2">
+                          <p className="text-xs font-medium text-muted-foreground">Attendance</p>
+                          <span className="text-[10px] text-primary font-bold bg-primary/5 px-1.5 py-0.5 rounded">Today</span>
+                        </div>
+                        <p className="text-2xl font-bold text-foreground">94.2%</p>
+                        <div className="mt-2 flex gap-1">
+                          {[3, 5, 4, 6, 5, 7, 8].map((h, i) => (
+                            <div key={i} className="flex-1 rounded-sm bg-primary/20 hover:bg-primary transition-colors" style={{ height: `${h * 2}px` }} />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* List Widget */}
+                      <div className="col-span-2 rounded-xl border p-4 bg-muted/5">
+                        <h4 className="text-xs font-bold text-foreground mb-3">Recent Onboarding</h4>
+                        <div className="space-y-3">
+                          {[
+                            { name: "Arjun Singh", role: "Product Designer", initial: "AS", color: "bg-blue-100 text-blue-600" },
+                            { name: "Priya Sharma", role: "Frontend Dev", initial: "PS", color: "bg-purple-100 text-purple-600" }
+                          ].map((user) => (
+                            <div key={user.name} className="flex items-center gap-3">
+                              <div className={`h-8 w-8 rounded-full ${user.color} flex items-center justify-center text-[10px] font-bold`}>
+                                {user.initial}
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-[11px] font-semibold text-foreground leading-tight">{user.name}</p>
+                                <p className="text-[10px] text-muted-foreground">{user.role}</p>
+                              </div>
+                              <div className="text-[10px] font-medium text-primary hover:underline cursor-pointer">View profile</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              {/* Status badges (Static) */}
+              <div className="absolute -left-6 top-1/4 rounded-lg bg-white p-3 shadow-xl border border-muted/50 hidden xl:flex items-center gap-3">
+                <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-foreground">Leave Approved</p>
+                  <p className="text-[9px] text-muted-foreground">Arjun Sharma • Applied 2h ago</p>
+                </div>
+              </div>
+
+              <div className="absolute -right-6 bottom-1/4 rounded-lg bg-white p-3 shadow-xl border border-muted/50 hidden xl:flex items-center gap-3">
+                <div className="h-8 w-8 rounded-full bg-amber-100 flex items-center justify-center">
+                  <Zap className="h-4 w-4 text-amber-500" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-foreground">Performance Review</p>
+                  <p className="text-[9px] text-muted-foreground">Due in 3 days</p>
                 </div>
               </div>
             </motion.div>
