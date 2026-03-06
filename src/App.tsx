@@ -18,6 +18,8 @@ import CommandCenter from "./pages/CommandCenter";
 import Analytics from "./pages/Analytics";
 import SettingsPage from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import SubmitProject from "./pages/SubmitProject";
+import ApplyJob from "./pages/ApplyJob";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +45,8 @@ const App = () => (
           <Route path="/command-center" element={<CommandCenter />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/submit" element={<SubmitProject />} />
+          <Route path="/apply/:jobId" element={<ApplyJob />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

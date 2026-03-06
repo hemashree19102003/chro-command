@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { 
-  ChevronDown, Users, Clock, Calendar, FileText, Shield, 
+import {
+  ChevronDown, Users, Clock, Calendar, FileText, Shield,
   BarChart3, UserPlus, Briefcase, MessageSquare, Smartphone,
   Link2, Bot, HeadphonesIcon, LogOut, Timer, ClipboardList,
   Star, Zap, CheckCircle2, ArrowRight, HelpCircle
@@ -10,39 +10,39 @@ import {
 import { motion } from "framer-motion";
 
 const featuresMenu = [
-  { 
+  {
     label: "Hiring & Onboarding", icon: UserPlus,
     items: ["Applicant Tracking", "Offer Management", "Employee Onboarding", "Background Verification"]
   },
-  { 
+  {
     label: "Core HR", icon: Users, link: "/people/core-hr",
     items: ["Employee Management", "Attendance Management", "Shift Management", "Leave Management", "Timesheets", "HR Help Desk", "Document Management", "HR Analytics", "Offboarding"]
   },
-  { 
+  {
     label: "Performance & Development", icon: Star,
     items: ["Goal Setting", "Performance Reviews", "360 Feedback", "Learning Management"]
   },
-  { 
+  {
     label: "Payroll & Expense", icon: Briefcase,
     items: ["Payroll Processing", "Expense Claims", "Tax Compliance", "Salary Structure"]
   },
-  { 
+  {
     label: "Employee Engagement", icon: Zap,
     items: ["Surveys", "Rewards & Recognition", "Team Collaboration", "Announcements"]
   },
-  { 
+  {
     label: "HR Automation", icon: Bot,
     items: ["Workflow Builder", "Auto-approvals", "Policy Engine", "Scheduled Tasks"]
   },
-  { 
+  {
     label: "HR Chatbot", icon: MessageSquare,
     items: ["Employee Queries", "Policy Q&A", "Leave Requests", "IT Help Desk"]
   },
-  { 
+  {
     label: "Mobile App", icon: Smartphone,
     items: ["Attendance Check-in", "Leave Apply", "Payslip View", "Approvals"]
   },
-  { 
+  {
     label: "Integrations", icon: Link2,
     items: ["Slack", "Microsoft Teams", "Google Workspace", "Accounting Software"]
   },
@@ -110,11 +110,10 @@ export default function People() {
                               setFeaturesOpen(false);
                             }
                           }}
-                          className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-colors ${
-                            activeCategory === i
+                          className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-colors ${activeCategory === i
                               ? "bg-primary/10 text-primary font-medium"
                               : "text-foreground hover:bg-muted/50"
-                          }`}
+                            }`}
                         >
                           <cat.icon className="h-4 w-4 shrink-0" />
                           <span>{cat.label}</span>
