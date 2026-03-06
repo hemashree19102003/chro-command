@@ -11,22 +11,28 @@ import { motion } from "framer-motion";
 
 const featuresMenu = [
   {
-    label: "Onboarding & Offboarding",
+    label: "Hiring & Onboarding",
     icon: UserPlus,
     link: "/people/onboarding-offboarding",
-    items: ["Employee Onboarding", "Employee Offboarding", "Offer Management", "Background Verification"]
+    items: ["Applicant Tracking", "Offer Management", "Employee Onboarding", "Background Verification"]
   },
   {
     label: "Attendance & Leave",
     icon: Clock,
     link: "/people/attendance-leave",
-    items: ["Tracking employee attendance", "Managing leave requests", "WFH Requests", "Shift Management"]
+    items: ["Attendance Management", "Leave Management", "WFH Requests", "Shift Management"]
   },
   {
-    label: "Performance",
+    label: "Core HR",
+    icon: Users,
+    link: "/people/core-hr",
+    items: ["Employee Management", "Attendance Management", "Shift Management", "Leave Management", "Timesheets", "HR Help Desk", "Document Management", "HR Analytics", "Offboarding"]
+  },
+  {
+    label: "Performance & Development",
     icon: Star,
     link: "/people/performance",
-    items: ["Performance Reviews", "Goal Setting", "360 Feedback", "Continuous Feedback"]
+    items: ["Performance Reviews", "Goal Setting", "360 Feedback", "Learning Management", "Skills Assessment", "Certifications", "Succession Planning"]
   },
   {
     label: "Training & Development",
@@ -35,10 +41,10 @@ const featuresMenu = [
     items: ["Learning Management", "Skills Assessment", "Certifications", "Succession Planning"]
   },
   {
-    label: "Salary Management",
+    label: "Salary & Payroll",
     icon: Briefcase,
     link: "/people/salary-management",
-    items: ["Salary Structure", "Bonus Management", "Commissions", "Appraisals"]
+    items: ["Salary Structure", "Bonus Management", "Payroll Processing", "Tax Compliance", "Payslip Generation"]
   },
   {
     label: "Compliance & Policies",
@@ -47,10 +53,30 @@ const featuresMenu = [
     items: ["Statutory Compliance", "Company Policies", "Legal Documentation", "Audit Logs"]
   },
   {
-    label: "Employee Relation",
+    label: "Employee Engagement",
     icon: MessageSquare,
     link: "/people/employee-relations",
     items: ["Employee Engagement", "Surveys", "Rewards & Recognition", "Internal Communications"]
+  },
+  {
+    label: "HR Automation",
+    icon: Bot,
+    items: ["Workflow Builder", "Auto-approvals", "Policy Engine", "Scheduled Tasks"]
+  },
+  {
+    label: "HR Chatbot",
+    icon: MessageSquare,
+    items: ["Employee Queries", "Policy Q&A", "Leave Requests", "IT Help Desk"]
+  },
+  {
+    label: "Mobile App",
+    icon: Smartphone,
+    items: ["Attendance Check-in", "Leave Apply", "Payslip View", "Approvals"]
+  },
+  {
+    label: "Integrations",
+    icon: Link2,
+    items: ["Slack", "Microsoft Teams", "Google Workspace", "Accounting Software"]
   },
   {
     label: "Payroll",

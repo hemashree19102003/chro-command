@@ -80,8 +80,8 @@ export function AppSidebar({ open, onToggle }: AppSidebarProps) {
             location.pathname === "/hr"
               ? "bg-sidebar-primary text-sidebar-primary-foreground"
               : isHrRoute
-              ? "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-              : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                ? "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           )}
         >
           <div className="flex items-center gap-3">
