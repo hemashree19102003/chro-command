@@ -11,41 +11,53 @@ import { motion } from "framer-motion";
 
 const featuresMenu = [
   {
-    label: "Hiring & Onboarding", icon: UserPlus,
-    items: ["Applicant Tracking", "Offer Management", "Employee Onboarding", "Background Verification"]
+    label: "Onboarding & Offboarding",
+    icon: UserPlus,
+    link: "/people/onboarding-offboarding",
+    items: ["Employee Onboarding", "Employee Offboarding", "Offer Management", "Background Verification"]
   },
   {
-    label: "Core HR", icon: Users, link: "/people/core-hr",
-    items: ["Employee Management", "Attendance Management", "Shift Management", "Leave Management", "Timesheets", "HR Help Desk", "Document Management", "HR Analytics", "Offboarding"]
+    label: "Attendance & Leave",
+    icon: Clock,
+    link: "/people/attendance-leave",
+    items: ["Tracking employee attendance", "Managing leave requests", "WFH Requests", "Shift Management"]
   },
   {
-    label: "Performance & Development", icon: Star,
-    items: ["Goal Setting", "Performance Reviews", "360 Feedback", "Learning Management"]
+    label: "Performance",
+    icon: Star,
+    link: "/people/performance",
+    items: ["Performance Reviews", "Goal Setting", "360 Feedback", "Continuous Feedback"]
   },
   {
-    label: "Payroll & Expense", icon: Briefcase,
-    items: ["Payroll Processing", "Expense Claims", "Tax Compliance", "Salary Structure"]
+    label: "Training & Development",
+    icon: Zap,
+    link: "/people/training-development",
+    items: ["Learning Management", "Skills Assessment", "Certifications", "Succession Planning"]
   },
   {
-    label: "Employee Engagement", icon: Zap,
-    items: ["Surveys", "Rewards & Recognition", "Team Collaboration", "Announcements"]
+    label: "Salary Management",
+    icon: Briefcase,
+    link: "/people/salary-management",
+    items: ["Salary Structure", "Bonus Management", "Commissions", "Appraisals"]
   },
   {
-    label: "HR Automation", icon: Bot,
-    items: ["Workflow Builder", "Auto-approvals", "Policy Engine", "Scheduled Tasks"]
+    label: "Compliance & Policies",
+    icon: Shield,
+    link: "/people/compliance-policies",
+    items: ["Statutory Compliance", "Company Policies", "Legal Documentation", "Audit Logs"]
   },
   {
-    label: "HR Chatbot", icon: MessageSquare,
-    items: ["Employee Queries", "Policy Q&A", "Leave Requests", "IT Help Desk"]
+    label: "Employee Relation",
+    icon: MessageSquare,
+    link: "/people/employee-relations",
+    items: ["Employee Engagement", "Surveys", "Rewards & Recognition", "Internal Communications"]
   },
   {
-    label: "Mobile App", icon: Smartphone,
-    items: ["Attendance Check-in", "Leave Apply", "Payslip View", "Approvals"]
-  },
-  {
-    label: "Integrations", icon: Link2,
-    items: ["Slack", "Microsoft Teams", "Google Workspace", "Accounting Software"]
-  },
+    label: "Payroll",
+    icon: FileText,
+    link: "/people/payroll",
+    items: ["Payroll Processing", "Tax Compliance", "Payslip Generation", "Expense Reimbursements"]
+  }
 ];
 
 const stats = [
@@ -355,8 +367,8 @@ export default function People() {
             From hiring to retirement, CHRO People covers every aspect of human resource management with intelligent automation.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuresMenu.slice(0, 6).map((feat, i) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {featuresMenu.slice(0, 8).map((feat, i) => (
             <motion.div
               key={feat.label}
               initial={{ opacity: 0, y: 20 }}

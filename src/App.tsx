@@ -7,6 +7,14 @@ import HRApps from "./pages/HRApps";
 import Dashboard from "./pages/Dashboard";
 import Recruit from "./pages/Recruit";
 import People from "./pages/People";
+import OnboardingOffboarding from "./pages/OnboardingOffboarding";
+import AttendanceLeave from "./pages/AttendanceLeave";
+import Performance from "./pages/Performance";
+import TrainingDevelopment from "./pages/TrainingDevelopment";
+import SalaryManagement from "./pages/SalaryManagement";
+import CompliancePolicies from "./pages/CompliancePolicies";
+import EmployeeRelations from "./pages/EmployeeRelations";
+import PayrollPeople from "./pages/PayrollPeople";
 import CoreHR from "./pages/CoreHR";
 import CoreHRModule from "./pages/CoreHRModule";
 import CoreHROperational from "./pages/CoreHROperational";
@@ -34,6 +42,14 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/recruit" element={<Recruit />} />
           <Route path="/people" element={<People />} />
+          <Route path="/people/onboarding-offboarding" element={<OnboardingOffboarding />} />
+          <Route path="/people/attendance-leave" element={<AttendanceLeave />} />
+          <Route path="/people/performance" element={<Performance />} />
+          <Route path="/people/training-development" element={<TrainingDevelopment />} />
+          <Route path="/people/salary-management" element={<SalaryManagement />} />
+          <Route path="/people/compliance-policies" element={<CompliancePolicies />} />
+          <Route path="/people/employee-relations" element={<EmployeeRelations />} />
+          <Route path="/people/payroll" element={<PayrollPeople />} />
           <Route path="/people/core-hr" element={<CoreHR />} />
           <Route path="/people/core-hr/:moduleId" element={<CoreHRModule />} />
           <Route path="/people/core-hr/:moduleId/app" element={<CoreHROperational />} />
